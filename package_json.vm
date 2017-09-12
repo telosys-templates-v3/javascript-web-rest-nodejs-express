@@ -1,0 +1,25 @@
+#set($projectVersion = $PROJECT_VERSION)
+#if($projectVersion.split("\.").size() < 3)
+#set($projectVersion = $projectVersion + ".0")
+#end
+{
+  "name": "${PROJECT_NAME.replaceAll(" ", "")}",
+  "version": "${projectVersion}",
+  "description": "${PROJECT_NAME}",
+  "author": "Romuald Tuffreau https://github.com/romwaldtff",
+  "license": "LGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/so-technology-watch/html5-indexeddb-nodejs/issues"
+  },
+  "repository": "https://github.com/so-technology-watch/html5-indexeddb-nodejs",
+  "scripts": {
+    "start": "node index.js 3000 ./sqlite.db"
+  },
+  "dependencies": {
+    "body-parser": "*",
+    "ejs": "*",
+    "express": "*",
+    "sqlite": "*",
+    "bluebird": "*"
+  }
+}
