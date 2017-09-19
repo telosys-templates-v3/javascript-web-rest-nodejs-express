@@ -6,15 +6,8 @@
   "name": "${PROJECT_NAME.replaceAll(" ", "")}",
   "version": "${projectVersion}",
   "description": "${PROJECT_NAME}",
-  "author": "Romuald Tuffreau https://github.com/romwaldtff",
+  "author": "Romuald Tuffreau https://github.com/romwaldtff, Imad El Hitti https://github.com/imadhy",
   "license": "LGPL-3.0",
-  "bugs": {
-    "url": "https://github.com/so-technology-watch/html5-indexeddb-nodejs/issues"
-  },
-  "repository": "https://github.com/so-technology-watch/html5-indexeddb-nodejs",
-  "scripts": {
-    "start": "node index.js 3000 ./sqlite.db"
-  },
   "dependencies": {
     "body-parser": "*",
     "ejs": "*",
