@@ -9,7 +9,7 @@ const app = express();
 const bodyParser = require("body-parser");
 
 // Router configuration
-const REST_API_ROOT = '/api/v1';
+const REST_API_ROOT = '$fn.get("REST_API_ROOT", "/api/v1")';
 
 /**
  * Server application configuration
