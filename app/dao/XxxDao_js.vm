@@ -189,7 +189,19 @@ module.exports = class ${entity}Dao {
         let sqlParams = {
 #foreach ( $attrib in $entity.attributes)
 #set ( $uncapitalizedAttribName = ${fn.uncapitalize($attrib.name)})
+#if ($foreach.count < $entity.attributes.size())
+#if ( $attrib.isDateType() )
+ 			${DOLLAR}${uncapitalizedAttribName}: new Date(${entity}.${uncapitalizedAttribName}).toISOString(),
+#else
  			${DOLLAR}${uncapitalizedAttribName}: ${entity}.${uncapitalizedAttribName},
+#end
+#else
+#if ( $attrib.isDateType() )
+ 			${DOLLAR}${uncapitalizedAttribName}: new Date(${entity}.${uncapitalizedAttribName}).toISOString()
+#else
+ 			${DOLLAR}${uncapitalizedAttribName}: ${entity}.${uncapitalizedAttribName}
+#end
+#end
 #end
         };
         return this.genericDao.update(sqlParams);
@@ -235,25 +247,38 @@ module.exports = class ${entity}Dao {
      */
     create($entity) {
         let sqlParams = {
-#set ( $returnedCreatedObjectAttrib = "")
 #if ($entity.hasAutoIncrementedKey())
 #foreach ( $attrib in $entity.nonKeyAttributes)
 #set ( $uncapitalizedAttribName = ${fn.uncapitalize($attrib.name)})
- 			${DOLLAR}${uncapitalizedAttribName}: ${entity}.${uncapitalizedAttribName},
 #if ($foreach.count < $entity.nonKeyAttributes.size())
-#set ( $returnedCreatedObjectAttrib = $returnedCreatedObjectAttrib + "${entity}.${uncapitalizedAttribName}, ")
+#if ($attrib.isDateType())
+ 			${DOLLAR}${uncapitalizedAttribName}: new Date(${entity}.${uncapitalizedAttribName}).toISOString(),
 #else
-#set ( $returnedCreatedObjectAttrib = $returnedCreatedObjectAttrib + "${entity}.${uncapitalizedAttribName}")
+ 			${DOLLAR}${uncapitalizedAttribName}: ${entity}.${uncapitalizedAttribName},
+#end
+#else
+#if ($attrib.isDateType())
+ 			${DOLLAR}${uncapitalizedAttribName}: new Date(${entity}.${uncapitalizedAttribName}).toISOString(),
+#else
+ 			${DOLLAR}${uncapitalizedAttribName}: ${entity}.${uncapitalizedAttribName}
+#end
 #end
 #end
 #else
 #foreach ( $attrib in $entity.attributes)
 #set ( $uncapitalizedAttribName = ${fn.uncapitalize($attrib.name)})
- 			${DOLLAR}${uncapitalizedAttribName}: ${entity}.${uncapitalizedAttribName},
-#if ($foreach.count < $entity.nonKeyAttributes.size())
-#set ( $returnedCreatedObjectAttrib = $returnedCreatedObjectAttrib + "${entity}.${uncapitalizedAttribName}, ")
+#if ($foreach.count < $entity.attributes.size())
+#if ($attrib.isDateType())
+ 			${DOLLAR}${uncapitalizedAttribName}: new Date(${entity}.${uncapitalizedAttribName}).toISOString(),
 #else
-#set ( $returnedCreatedObjectAttrib = $returnedCreatedObjectAttrib + "${entity}.${uncapitalizedAttribName}")
+ 			${DOLLAR}${uncapitalizedAttribName}: ${entity}.${uncapitalizedAttribName},
+#end
+#else
+#if ($attrib.isDateType())
+ 			${DOLLAR}${uncapitalizedAttribName}: new Date(${entity}.${uncapitalizedAttribName}).toISOString()
+#else
+ 			${DOLLAR}${uncapitalizedAttribName}: ${entity}.${uncapitalizedAttribName}
+#end
 #end
 #end
 #end
@@ -266,10 +291,15 @@ module.exports = class ${entity}Dao {
 #foreach ( $attrib in $entity.attributes)
 #set ( $uncapitalizedAttribName = ${fn.uncapitalize($attrib.name)})
 #if (!$attrib.isAutoIncremented())
- 					${uncapitalizedAttribName}: ${entity}.${uncapitalizedAttribName}#if($foreach.count < $entity.attributes.size()),#else#end
+#if ($attrib.isDateType())
+ 					    ${uncapitalizedAttribName}: new Date(${entity}.${uncapitalizedAttribName}).toISOString()#if($foreach.count < $entity.attributes.size()),#else#end
 
 #else
-					${uncapitalizedAttribName}: id#if($foreach.count < $entity.attributes.size()),#else#end
+ 					    ${uncapitalizedAttribName}: ${entity}.${uncapitalizedAttribName}#if($foreach.count < $entity.attributes.size()),#else#end
+
+#end
+#else
+ 					    ${uncapitalizedAttribName}: id#if($foreach.count < $entity.attributes.size()),#else#end
 
 #end
 #end
