@@ -192,16 +192,12 @@ module.exports = class ${entity}Dao {
 #if ($foreach.count < $entity.attributes.size())
 #if ( $attrib.isDateType() )
  			${DOLLAR}${uncapitalizedAttribName}: new Date(${entity}.${uncapitalizedAttribName}).toISOString(),
-#elseif( $attrib.isFK() )
-            ${DOLLAR}${uncapitalizedAttribName}: isNaN(${entity}.${uncapitalizedAttribName}) ? ${entity}.${uncapitalizedAttribName} : Number(${entity}.${uncapitalizedAttribName}),
 #else
  			${DOLLAR}${uncapitalizedAttribName}: ${entity}.${uncapitalizedAttribName},
 #end
 #else
 #if ( $attrib.isDateType() )
  			${DOLLAR}${uncapitalizedAttribName}: new Date(${entity}.${uncapitalizedAttribName}).toISOString()
-#elseif( $attrib.isFK() )
-            ${DOLLAR}${uncapitalizedAttribName}: isNaN(${entity}.${uncapitalizedAttribName}) ? ${entity}.${uncapitalizedAttribName} : Number(${entity}.${uncapitalizedAttribName})
 #else
  			${DOLLAR}${uncapitalizedAttribName}: ${entity}.${uncapitalizedAttribName}
 #end
@@ -257,16 +253,12 @@ module.exports = class ${entity}Dao {
 #if ($foreach.count < $entity.nonKeyAttributes.size())
 #if ($attrib.isDateType())
  			${DOLLAR}${uncapitalizedAttribName}: new Date(${entity}.${uncapitalizedAttribName}).toISOString(),
-#elseif( $attrib.isFK() )
-            ${DOLLAR}${uncapitalizedAttribName}: isNaN(${entity}.${uncapitalizedAttribName}) ? ${entity}.${uncapitalizedAttribName} : Number(${entity}.${uncapitalizedAttribName}),
 #else
  			${DOLLAR}${uncapitalizedAttribName}: ${entity}.${uncapitalizedAttribName},
 #end
 #else
 #if ($attrib.isDateType())
  			${DOLLAR}${uncapitalizedAttribName}: new Date(${entity}.${uncapitalizedAttribName}).toISOString()
-#elseif( $attrib.isFK() )
-            ${DOLLAR}${uncapitalizedAttribName}: isNaN(${entity}.${uncapitalizedAttribName}) ? ${entity}.${uncapitalizedAttribName} : Number(${entity}.${uncapitalizedAttribName})
 #else
  			${DOLLAR}${uncapitalizedAttribName}: ${entity}.${uncapitalizedAttribName}
 #end
@@ -278,16 +270,12 @@ module.exports = class ${entity}Dao {
 #if ($foreach.count < $entity.attributes.size())
 #if ($attrib.isDateType())
  			${DOLLAR}${uncapitalizedAttribName}: new Date(${entity}.${uncapitalizedAttribName}).toISOString(),
-#elseif( $attrib.isFK() )
-            ${DOLLAR}${uncapitalizedAttribName}: isNaN(${entity}.${uncapitalizedAttribName}) ? ${entity}.${uncapitalizedAttribName} : Number(${entity}.${uncapitalizedAttribName}),
 #else
  			${DOLLAR}${uncapitalizedAttribName}: ${entity}.${uncapitalizedAttribName},
 #end
 #else
 #if ($attrib.isDateType())
  			${DOLLAR}${uncapitalizedAttribName}: new Date(${entity}.${uncapitalizedAttribName}).toISOString()
-#elseif( $attrib.isFK() )
-            ${DOLLAR}${uncapitalizedAttribName}: isNaN(${entity}.${uncapitalizedAttribName}) ? ${entity}.${uncapitalizedAttribName} : Number(${entity}.${uncapitalizedAttribName})
 #else
  			${DOLLAR}${uncapitalizedAttribName}: ${entity}.${uncapitalizedAttribName}
 #end
