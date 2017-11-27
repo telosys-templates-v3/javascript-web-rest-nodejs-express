@@ -102,7 +102,7 @@
 #end
 
 // Load $entity entity
-const $entity = require('../model/$uncapitalizedEntityName');
+const $entity = require('../model/${entity.name}');
 
 // Load DAO Common functions
 const GenericDao = require('./commons/genericDao');
@@ -121,9 +121,9 @@ const sqlInsert = "INSERT into $uncapitalizedEntityName ($sqlFindAttribs) VALUES
 #end
 
 /**
- * DAO of entity ${entity}
+ * DAO of entity ${entity.name}
  */
-module.exports = class ${entity}Dao {
+module.exports = class ${entity.name}Dao {
 
     constructor() {
         this.genericDao = new GenericDao(

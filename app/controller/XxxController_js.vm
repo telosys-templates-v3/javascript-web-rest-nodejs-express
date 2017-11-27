@@ -14,21 +14,21 @@
 #end
 
 // Load $entity Data Access Object
-const ${entity}Dao = require('../dao/${uncapitalizedEntityName}Dao');
+const ${entity}Dao = require('../dao/${entity.name}Dao');
 
 // Load Controller Common function
 const ControllerCommon = require('./common/controllerCommon');
 
 // Load $entity entity
-const $entity = require('../model/$uncapitalizedEntityName');
+const $entity = require('../model/${entity.name}');
 
 /**
- * $entity Controller
+ * $entity.name Controller
  */
-module.exports = class ${entity}Controller {
+module.exports = class ${entity.name}Controller {
 
     constructor() {
-        this.${uncapitalizedEntityName}Dao = new ${entity}Dao();
+        this.${uncapitalizedEntityName}Dao = new ${entity.name}Dao();
         this.common = new ControllerCommon();
     }
 
