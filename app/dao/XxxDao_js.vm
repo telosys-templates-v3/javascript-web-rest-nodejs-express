@@ -187,18 +187,25 @@ module.exports = class ${entity.name}Dao {
      */
     update($entity) {
         let sqlParams = {
+#set ( $saveUpdateBodyReturn = "")
 #foreach ( $attrib in $entity.attributes)
 #set ( $uncapitalizedAttribName = ${fn.uncapitalize($attrib.name)})
 #if ($foreach.count < $entity.attributes.size())
 #if ( $attrib.isDateType() )
+#set ( $saveUpdateBodyReturn = $saveUpdateBodyReturn + "${uncapitalizedAttribName}: new Date(${entity}.${uncapitalizedAttribName}).toISOString(),
+                                ")
  			${DOLLAR}${uncapitalizedAttribName}: new Date(${entity}.${uncapitalizedAttribName}).toISOString(),
 #else
+#set ( $saveUpdateBodyReturn = $saveUpdateBodyReturn + "${uncapitalizedAttribName}: ${entity}.${uncapitalizedAttribName},
+                                ")
  			${DOLLAR}${uncapitalizedAttribName}: ${entity}.${uncapitalizedAttribName},
 #end
 #else
 #if ( $attrib.isDateType() )
+#set ( $saveUpdateBodyReturn = $saveUpdateBodyReturn + "${uncapitalizedAttribName}: new Date(${entity}.${uncapitalizedAttribName}).toISOString()")
  			${DOLLAR}${uncapitalizedAttribName}: new Date(${entity}.${uncapitalizedAttribName}).toISOString()
 #else
+#set ( $saveUpdateBodyReturn = $saveUpdateBodyReturn + "${uncapitalizedAttribName}: ${entity}.${uncapitalizedAttribName}")
  			${DOLLAR}${uncapitalizedAttribName}: ${entity}.${uncapitalizedAttribName}
 #end
 #end
@@ -218,7 +225,9 @@ module.exports = class ${entity.name}Dao {
                 return this.update($entity).then(result => {
                     if (result === true) {
                         return {
-                            body: $entity,
+                            body:{
+                                $saveUpdateBodyReturn
+                            },
                             newItem: false
                         };
                     } else {
