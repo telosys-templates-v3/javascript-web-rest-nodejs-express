@@ -58,6 +58,17 @@ module.exports = class ${entity.name}Controller {
     };
 
     /**
+     * Count all entries of a ${entity.name}.
+     * @param res
+     * @return The number of entities
+     */
+    countAll(res) {
+        this.${uncapitalizedEntityName}Dao.countAll()
+            .then(this.common.getSuccess(res))
+            .catch(this.common.noSuccess(res));
+    };
+
+    /**
      * Updates the given entity in the database
      * @param req, res
      * @return update response's code status and body

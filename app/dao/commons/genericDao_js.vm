@@ -70,6 +70,24 @@ module.exports = class GenericDAO {
     }
 
     /**
+     * Execute the sqlCount query
+     * @returns Promise
+     */
+    countAll() {
+        return new Promise(function (resolve, reject) {
+            this.getDatabase().all(this.sqlCount, function (err, count) {
+                console.log('this is count : ', count);
+                console.log('this is err : ', err);
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(count);
+                }
+            });
+        }.bind(this));
+    }
+
+    /**
      * Execute the existOne query
      * @param sqlRequest, sqlParams
      * @returns Promise

@@ -12,6 +12,7 @@ const router = express.Router();
 #foreach ($entity in $selectedEntities)
 router.use('/${fn.uncapitalize($entity.name)}', require('./api/${entity.name}Routes'));
 #end
+router.use('', require('./api/CountRoutes'));
 router.use('*', function(req, res) {
         res.status(400);
         res.json();
